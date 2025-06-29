@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express_1.default.json());
 dotenv_1.default.config();
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.send('Hi, World!');
 });
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
