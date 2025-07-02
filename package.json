@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "tsc": "cd server && npm run build",
     "client": "cd client && npm run dev",
-    "build": "cd server && npm run build",
-    "server": "cd server && npm run server"
+    "server": "cd server && npm run server",
+    "chroma": "cd chromadb-server && env\\Scripts\\activate && chroma run --path ./data"
   },
   "author": "",
   "license": "ISC"
