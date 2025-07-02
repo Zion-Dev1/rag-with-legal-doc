@@ -1,8 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
+import { ChromaClient } from "chromadb";
+
 const app = express();
-const PORT = process.env.PORT || 3000;  
+const PORT = process.env.PORT || 3000; 
+const client = new ChromaClient();
 
 app.use(express.json());
 dotenv.config();
