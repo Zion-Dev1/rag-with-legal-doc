@@ -7,7 +7,7 @@ const embedDocController = async (req: Request, res: Response): Promise<any> => 
   try {
     // const collection = await client.createCollection({ name: "myc" })
 
-    const pdfPath = join(__dirname, "../../../data/biologynotes.pdf");
+    const pdfPath = join(__dirname, "../../../data/legal doc.pdf");
     const pdf = await getDocService(pdfPath);
 
     if (!pdf) {

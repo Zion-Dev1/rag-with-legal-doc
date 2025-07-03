@@ -17,7 +17,7 @@ const readDocService_1 = __importDefault(require("../services/readDocService"));
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const collection = await client.createCollection({ name: "myc" })
-        const pdfPath = (0, path_1.join)(__dirname, "../../../data/biologynotes.pdf");
+        const pdfPath = (0, path_1.join)(__dirname, "../../../data/legal doc.pdf");
         const pdf = yield (0, readDocService_1.default)(pdfPath);
         if (!pdf) {
             return res.status(404).json({ error: "Document not found or empty." });
