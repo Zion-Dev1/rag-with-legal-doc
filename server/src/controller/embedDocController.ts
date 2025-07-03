@@ -3,23 +3,25 @@ import { join } from "path";
 import client from "../services/chromaClient";
 import getDocService from "../services/readDocService";
 
-const embedDocController = async (req: Request, res: Response): Promise<any> => {
+const embedDocController = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
-    // const collection = await client.createCollection({ name: "myc" })
+    const collection = await client.createCollection({ name: "myc" });
 
     const pdfPath = join(__dirname, "../../../data/legal doc.pdf");
-    const pdf = await getDocService(pdfPath);
+    const pdfText = await getDocService(pdfPath);
 
-    if (!pdf) {
+    if (!pdfText) {
       return res.status(404).json({ error: "Document not found or empty." });
+    } else {
+      collection.add({ ids: ["pdf1"], documents: [pdfText] });
     }
 
-    return res.status(200).json({
-      message: "Document embedding started successfully.",
-      pdf
-    });
+    return res.status(200).json({ msg: "Document embedded successfully." });
   } catch (err) {
-    return res.status(500).json({ error: (err as Error).message });
+    return res.status(500).json({ err: (err as Error).message });
   }
 };
 

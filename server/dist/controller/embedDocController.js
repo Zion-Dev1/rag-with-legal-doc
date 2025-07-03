@@ -13,22 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
+const chromaClient_1 = __importDefault(require("../services/chromaClient"));
 const readDocService_1 = __importDefault(require("../services/readDocService"));
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // const collection = await client.createCollection({ name: "myc" })
+        const collection = yield chromaClient_1.default.createCollection({ name: "myc" });
         const pdfPath = (0, path_1.join)(__dirname, "../../../data/legal doc.pdf");
-        const pdf = yield (0, readDocService_1.default)(pdfPath);
-        if (!pdf) {
+        const pdfText = yield (0, readDocService_1.default)(pdfPath);
+        if (!pdfText) {
             return res.status(404).json({ error: "Document not found or empty." });
         }
-        return res.status(200).json({
-            message: "Document embedding started successfully.",
-            pdf
-        });
+        else {
+            collection.add({ ids: ["pdf1"], documents: [pdfText] });
+        }
+        return res.status(200).json({ msg: "Document embedded successfully." });
     }
     catch (err) {
-        return res.status(500).json({ error: err.message });
+        return res.status(500).json({ err: err.message });
     }
 });
 exports.default = embedDocController;
