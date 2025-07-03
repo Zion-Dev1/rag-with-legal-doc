@@ -1,4 +1,11 @@
+// chromaClient.js
 import { ChromaClient } from "chromadb";
 
-const client = new ChromaClient();
-export default client;
+const initChroma = async () => {
+  const client = new ChromaClient();
+  const collection = await client.createCollection({ name: "myc" });
+
+  return { client, collection };
+};
+
+export default initChroma;

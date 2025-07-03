@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { join } from "path";
-import client from "../services/chromaClient";
+import initChroma from "../services/chromaClient";
 import getDocService from "../services/readDocService";
 
 const embedDocController = async (
@@ -8,7 +8,13 @@ const embedDocController = async (
   res: Response
 ): Promise<any> => {
   try {
-    const collection = await client.createCollection({ name: "myc" });
+    const { collection } = await initChroma();
+
+    if (!collection) {
+      return res
+        .status(500)
+        .json({ error: "Error retrieving ChromaDB collection." });
+    }
 
     const pdfPath = join(__dirname, "../../../data/legal doc.pdf");
     const pdfText = await getDocService(pdfPath);

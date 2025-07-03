@@ -17,7 +17,12 @@ const chromaClient_1 = __importDefault(require("../services/chromaClient"));
 const readDocService_1 = __importDefault(require("../services/readDocService"));
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const collection = yield chromaClient_1.default.createCollection({ name: "myc" });
+        const { collection } = yield (0, chromaClient_1.default)();
+        if (!collection) {
+            return res
+                .status(500)
+                .json({ error: "Error retrieving ChromaDB collection." });
+        }
         const pdfPath = (0, path_1.join)(__dirname, "../../../data/legal doc.pdf");
         const pdfText = yield (0, readDocService_1.default)(pdfPath);
         if (!pdfText) {
