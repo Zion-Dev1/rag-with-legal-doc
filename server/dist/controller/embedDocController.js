@@ -13,14 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
-const getDocService_1 = __importDefault(require("../services/getDocService"));
+const readDocService_1 = __importDefault(require("../services/readDocService"));
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const collection = await client.createCollection({ name: "myc" })
         const pdfPath = (0, path_1.join)(__dirname, "../../../data/biologynotes.pdf");
-        yield (0, getDocService_1.default)(pdfPath);
+        const pdf = yield (0, readDocService_1.default)(pdfPath);
+        if (!pdf) {
+            return res.status(404).json({ error: "Document not found or empty." });
+        }
         return res.status(200).json({
             message: "Document embedding started successfully.",
+            pdf
         });
     }
     catch (err) {

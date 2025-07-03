@@ -8,12 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const promises_1 = require("node:fs/promises");
+const fs_1 = require("fs");
+const pdf_parse_1 = __importDefault(require("pdf-parse"));
 const getDocService = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield (0, promises_1.readFile)(filePath, { encoding: "utf8" });
-        console.log(data);
+        const dataBuffer = (0, fs_1.readFileSync)(filePath);
+        const data = yield (0, pdf_parse_1.default)(dataBuffer);
+        return data.text;
     }
     catch (err) {
         console.error(err);
