@@ -1,21 +1,16 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import express from "express";
+import dotenv from "dotenv";
 
-import { ChromaClient } from "chromadb";
-import embedDocService from './services/embedDocService';
+import docRouter from "./routes/docRoutes";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
-const client = new ChromaClient();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-
-app.get('/embedPdf', async (req, res) => {
-    await embedDocService(client)
-});
+app.use("/doc", docRouter);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
