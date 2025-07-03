@@ -14,6 +14,7 @@ const chromadb_1 = require("chromadb");
 const initChroma = () => __awaiter(void 0, void 0, void 0, function* () {
     const client = new chromadb_1.ChromaClient();
     const collection = yield client.createCollection({ name: "myc" });
+    // split collection into creation and retrieval
     return { client, collection };
 });
 exports.default = initChroma;
