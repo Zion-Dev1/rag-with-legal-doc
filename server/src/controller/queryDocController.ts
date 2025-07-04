@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import initChroma from "../services/chromaClient";
+import chroma from "../services/chromaClient";
 
 const queryDocController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const { collection } = await initChroma();
+    const { collection } = await chroma;
 
     if (!collection) {
       return res

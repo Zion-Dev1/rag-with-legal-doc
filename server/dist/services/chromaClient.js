@@ -11,10 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 // chromaClient.js
 const chromadb_1 = require("chromadb");
-const initChroma = () => __awaiter(void 0, void 0, void 0, function* () {
-    const client = new chromadb_1.ChromaClient();
-    const collection = yield client.createCollection({ name: "myc" });
-    // split collection into creation and retrieval
+const client = new chromadb_1.ChromaClient();
+const ready = (() => __awaiter(void 0, void 0, void 0, function* () {
+    const collection = yield client.getOrCreateCollection({ name: "myc" });
     return { client, collection };
-});
-exports.default = initChroma;
+}))();
+exports.default = ready;

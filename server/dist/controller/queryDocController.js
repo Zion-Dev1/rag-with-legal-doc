@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chromaClient_1 = __importDefault(require("../services/chromaClient"));
 const queryDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { collection } = yield (0, chromaClient_1.default)();
+        const { collection } = yield chromaClient_1.default;
         if (!collection) {
             return res
                 .status(500)

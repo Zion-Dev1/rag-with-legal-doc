@@ -17,7 +17,7 @@ const chromaClient_1 = __importDefault(require("../services/chromaClient"));
 const readDocService_1 = __importDefault(require("../services/readDocService"));
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { collection } = yield (0, chromaClient_1.default)();
+        const { collection } = yield chromaClient_1.default;
         if (!collection) {
             return res
                 .status(500)

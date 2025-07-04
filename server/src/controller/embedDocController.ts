@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { join } from "path";
-import initChroma from "../services/chromaClient";
+import chroma from "../services/chromaClient";
 import getDocService from "../services/readDocService";
 
 const embedDocController = async (
@@ -8,7 +8,7 @@ const embedDocController = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { collection } = await initChroma();
+    const { collection } = await chroma;
 
     if (!collection) {
       return res
