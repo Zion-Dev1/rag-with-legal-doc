@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { join } from "path";
 import chroma from "../services/chromaClient";
 import readDoc from "../services/readDocService";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 
 const embedDocController = async (
   req: Request,
@@ -21,7 +21,14 @@ const embedDocController = async (
     if (!pdfText) {
       return res.status(404).json({ error: "Document not found or empty." });
     } else {
-      collection.add({ ids: ["pdf1"], documents: [pdfText] });
+      const splitter = new RecursiveCharacterTextSplitter({
+        chunkSize: 1000,
+        chunkOverlap: 200,
+      });
+
+      const output = await splitter.splitText(pdfText);
+      
+      // collection.add({ ids: ["pdf1"], documents: [pdfText] });
     }
 
     return res.status(200).json({ msg: "Document embedded successfully." });

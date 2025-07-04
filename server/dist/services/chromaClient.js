@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// chromaClient.js
 const chromadb_1 = require("chromadb");
+// make seperate function to create and call client
 const client = new chromadb_1.ChromaClient();
 const ready = (() => __awaiter(void 0, void 0, void 0, function* () {
     const collection = yield client.getOrCreateCollection({ name: "myc" });

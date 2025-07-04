@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const chromaClient_1 = __importDefault(require("../services/chromaClient"));
 const readDocService_1 = __importDefault(require("../services/readDocService"));
+const textsplitters_1 = require("@langchain/textsplitters");
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { collection } = yield chromaClient_1.default;
@@ -27,7 +28,12 @@ const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, funct
             return res.status(404).json({ error: "Document not found or empty." });
         }
         else {
-            collection.add({ ids: ["pdf1"], documents: [pdfText] });
+            const splitter = new textsplitters_1.RecursiveCharacterTextSplitter({
+                chunkSize: 1000,
+                chunkOverlap: 200,
+            });
+            const output = yield splitter.splitText(pdfText);
+            // collection.add({ ids: ["pdf1"], documents: [pdfText] });
         }
         return res.status(200).json({ msg: "Document embedded successfully." });
     }
