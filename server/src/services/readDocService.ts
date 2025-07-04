@@ -1,9 +1,12 @@
 import { readFileSync } from "fs";
+import { join } from "path";
 import pdf from "pdf-parse";
 
-const readDoc = async (filePath: string) => {
+const readDoc = async () => {
   try {
-    const dataBuffer = readFileSync(filePath);
+    const pdfPath = join(__dirname, "../../../data/legal doc.pdf");
+
+    const dataBuffer = readFileSync(pdfPath);
     const data = await pdf(dataBuffer);
 
     return data.text;

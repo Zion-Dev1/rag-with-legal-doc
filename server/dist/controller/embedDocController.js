@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = require("path");
 const chromaClient_1 = __importDefault(require("../services/chromaClient"));
 const readDocService_1 = __importDefault(require("../services/readDocService"));
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -23,8 +22,7 @@ const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 .status(500)
                 .json({ error: "Error retrieving ChromaDB collection." });
         }
-        const pdfPath = (0, path_1.join)(__dirname, "../../../data/legal doc.pdf");
-        const pdfText = yield (0, readDocService_1.default)(pdfPath);
+        const pdfText = yield (0, readDocService_1.default)();
         if (!pdfText) {
             return res.status(404).json({ error: "Document not found or empty." });
         }

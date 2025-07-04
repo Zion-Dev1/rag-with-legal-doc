@@ -16,8 +16,7 @@ const embedDocController = async (
         .json({ error: "Error retrieving ChromaDB collection." });
     }
 
-    const pdfPath = join(__dirname, "../../../data/legal doc.pdf");
-    const pdfText = await readDoc(pdfPath);
+    const pdfText = await readDoc();
 
     if (!pdfText) {
       return res.status(404).json({ error: "Document not found or empty." });
