@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const pdf_parse_1 = __importDefault(require("pdf-parse"));
-const readDocService = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
+const readDoc = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const dataBuffer = (0, fs_1.readFileSync)(filePath);
         const data = yield (0, pdf_parse_1.default)(dataBuffer);
@@ -24,4 +24,4 @@ const readDocService = (filePath) => __awaiter(void 0, void 0, void 0, function*
         console.error(err);
     }
 });
-exports.default = readDocService;
+exports.default = readDoc;

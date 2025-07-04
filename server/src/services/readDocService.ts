@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import pdf from "pdf-parse";
 
-const readDocService = async (filePath: string) => {
+const readDoc = async (filePath: string) => {
   try {
     const dataBuffer = readFileSync(filePath);
     const data = await pdf(dataBuffer);
@@ -12,4 +12,4 @@ const readDocService = async (filePath: string) => {
   }
 };
 
-export default readDocService;
+export default readDoc;

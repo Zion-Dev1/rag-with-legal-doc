@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { join } from "path";
 import chroma from "../services/chromaClient";
-import readDocService from "../services/readDocService";
+import readDoc from "../services/readDocService";
 
 const embedDocController = async (
   req: Request,
@@ -17,7 +17,7 @@ const embedDocController = async (
     }
 
     const pdfPath = join(__dirname, "../../../data/legal doc.pdf");
-    const pdfText = await readDocService(pdfPath);
+    const pdfText = await readDoc(pdfPath);
 
     if (!pdfText) {
       return res.status(404).json({ error: "Document not found or empty." });

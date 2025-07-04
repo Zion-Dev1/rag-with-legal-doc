@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const embedDocService = async (chunk: string) => {
+const embedDoc = async (chunk: string) => {
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
@@ -21,4 +21,4 @@ const embedDocService = async (chunk: string) => {
   }
 };
 
-export default embedDocService;
+export default embedDoc;
