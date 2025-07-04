@@ -12,16 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = require("fs");
-const pdf_parse_1 = __importDefault(require("pdf-parse"));
-const readDocService = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
+const openai_1 = __importDefault(require("openai"));
+const embedDocService = (chunk) => __awaiter(void 0, void 0, void 0, function* () {
+    const openai = new openai_1.default({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
     try {
-        const dataBuffer = (0, fs_1.readFileSync)(filePath);
-        const data = yield (0, pdf_parse_1.default)(dataBuffer);
-        return data.text;
+        const response = yield openai.embeddings.create({
+            model: "text-embedding-3-small",
+            input: chunk,
+        });
+        if (!response.data || response.data.length === 0) {
+            throw new Error("No embedding data returned from OpenAI");
+        }
+        return response.data[0].embedding;
     }
     catch (err) {
-        console.error(err);
+        console.error("Error initializing OpenAI client:", err);
     }
 });
-exports.default = readDocService;
+exports.default = embedDocService;
