@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import chroma from "../services/chromaClient";
 import readDoc from "../services/readDocService";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
+import createIds from "../utils/createIds";
 
 const embedDocController = async (
   req: Request,
@@ -27,8 +28,8 @@ const embedDocController = async (
       });
 
       const output = await splitter.splitText(pdfText);
-      
-      collection.add({ ids: ["pdf1"], documents: output, embeddings: [] });  
+
+      collection.add({ ids: createIds(output.length), documents: output });
     }
 
     return res.status(200).json({ msg: "Document embedded successfully." });

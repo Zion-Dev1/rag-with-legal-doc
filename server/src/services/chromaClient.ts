@@ -1,5 +1,8 @@
 import { ChromaClient } from "chromadb";
 import { OpenAIEmbeddingFunction } from "@chroma-core/openai";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const client = new ChromaClient();
 
