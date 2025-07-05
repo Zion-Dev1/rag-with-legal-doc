@@ -10,10 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chromadb_1 = require("chromadb");
-// make seperate function to create and call client
+const openai_1 = require("@chroma-core/openai");
 const client = new chromadb_1.ChromaClient();
 const ready = (() => __awaiter(void 0, void 0, void 0, function* () {
-    const collection = yield client.getOrCreateCollection({ name: "myc" });
+    const collection = yield client.getOrCreateCollection({
+        name: "myc",
+        embeddingFunction: new openai_1.OpenAIEmbeddingFunction({
+            modelName: "text-embedding-3-small",
+        }),
+    });
     return { client, collection };
 }))();
 exports.default = ready;

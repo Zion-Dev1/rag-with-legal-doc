@@ -28,7 +28,7 @@ const embedDocController = async (
 
       const output = await splitter.splitText(pdfText);
       
-      // collection.add({ ids: ["pdf1"], documents: [pdfText] });
+      collection.add({ ids: ["pdf1"], documents: output, embeddings: [] });  
     }
 
     return res.status(200).json({ msg: "Document embedded successfully." });
