@@ -12,13 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const chromaClient_1 = __importDefault(require("../services/chromaClient"));
+const chromaCollection_1 = __importDefault(require("../chroma-db/chromaCollection"));
 const readDocService_1 = __importDefault(require("../services/readDocService"));
 const textsplitters_1 = require("@langchain/textsplitters");
 const createIds_1 = __importDefault(require("../utils/createIds"));
 const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { collection } = yield chromaClient_1.default;
+        const { collection } = yield chromaCollection_1.default;
         if (!collection) {
             return res
                 .status(500)
@@ -34,7 +34,7 @@ const embedDocController = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 chunkOverlap: 200,
             });
             const output = yield splitter.splitText(pdfText);
-            collection.add({ ids: (0, createIds_1.default)(output.length), documents: output });
+            yield collection.add({ ids: (0, createIds_1.default)(output.length), documents: output });
         }
         return res.status(200).json({ msg: "Document embedded successfully." });
     }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import chroma from "../services/chromaClient";
+import chroma from "../chroma-db/chromaCollection";
 
 const queryDocController = async (
   req: Request,
@@ -24,8 +24,6 @@ const queryDocController = async (
       queryTexts: [query],
       nResults: 2,
     });
-
-    console.log(results);
 
     return res
       .status(200)

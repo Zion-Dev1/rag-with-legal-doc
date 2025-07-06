@@ -1,10 +1,8 @@
-import { ChromaClient } from "chromadb";
+import client from "./chromaClient";
 import { OpenAIEmbeddingFunction } from "@chroma-core/openai";
 import dotenv from "dotenv";
 
 dotenv.config();
-
-const client = new ChromaClient();
 
 const ready = (async () => {
   const collection = await client.getOrCreateCollection({

@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const chromaClient_1 = __importDefault(require("../services/chromaClient"));
+const chromaCollection_1 = __importDefault(require("../chroma-db/chromaCollection"));
 const queryDocController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { collection } = yield chromaClient_1.default;
+        const { collection } = yield chromaCollection_1.default;
         if (!collection) {
             return res
                 .status(500)
@@ -29,7 +29,6 @@ const queryDocController = (req, res) => __awaiter(void 0, void 0, void 0, funct
             queryTexts: [query],
             nResults: 2,
         });
-        console.log(results);
         return res
             .status(200)
             .json({ msg: "Document queried successfully.", results });

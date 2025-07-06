@@ -12,17 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("../app");
+const chromaClient_1 = __importDefault(require("./chromaClient"));
 const openai_1 = require("@chroma-core/openai");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const ready = (() => __awaiter(void 0, void 0, void 0, function* () {
-    const collection = yield app_1.client.getOrCreateCollection({
+    const collection = yield chromaClient_1.default.getOrCreateCollection({
         name: "myc",
         embeddingFunction: new openai_1.OpenAIEmbeddingFunction({
             modelName: "text-embedding-3-small",
         }),
     });
-    return { client: app_1.client, collection };
+    return { client: chromaClient_1.default, collection };
 }))();
 exports.default = ready;
