@@ -15,9 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chromaCollection_1 = __importDefault(require("../chroma-db/chromaCollection"));
 const queryDocService = (query) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (typeof query !== "string" || query.trim() === "") {
-            throw new Error("Invalid query provided.");
-        }
         const { collection } = yield chromaCollection_1.default;
         if (!collection) {
             throw new Error("Error retrieving ChromaDB collection.");

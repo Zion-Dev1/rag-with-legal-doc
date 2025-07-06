@@ -2,10 +2,6 @@ import chroma from "../chroma-db/chromaCollection";
 
 const queryDocService = async (query: string): Promise<any> => {
   try {
-    if (typeof query !== "string" || query.trim() === "") {
-      throw new Error("Invalid query provided.");
-    }
-
     const { collection } = await chroma;
 
     if (!collection) {

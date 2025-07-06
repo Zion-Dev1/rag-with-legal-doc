@@ -18,6 +18,10 @@ const genResponseController = (req, res) => __awaiter(void 0, void 0, void 0, fu
         const client = new openai_1.default({
             apiKey: process.env.OPENAI_API_KEY,
         });
+        const query = req.body.query;
+        if (typeof query !== "string" || query.trim() === "") {
+            return res.status(400).json({ error: "Invalid query provided." });
+        }
         const completion = yield client.chat.completions.create({
             model: "gpt-4.1",
             messages: [
