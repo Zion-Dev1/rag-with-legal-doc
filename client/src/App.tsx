@@ -1,7 +1,15 @@
+import { Button, TextField } from "@mui/material";
+
 function App() {
   return (
-    <h1>hello world</h1>
-  )
+    <div>
+      <Button variant="contained">Load Legal Document</Button>
+
+      <TextField variant="outlined" label="Enter Query" />
+
+      <p>info here</p>
+    </div>
+  );
 }
 
-export default App
+export default App;
