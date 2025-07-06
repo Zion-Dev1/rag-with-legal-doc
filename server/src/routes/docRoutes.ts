@@ -1,10 +1,10 @@
 import express from "express";
 import embedDocController from "../controller/embedDocController";
-import queryDocController from "../controller/queryDocController";
+import genResponseController from "../controller/genResponseController";
 
 const router = express.Router();
 
 router.get("/embed", embedDocController);
-router.post("/query", queryDocController);
+router.post("/query", genResponseController);
 
 export default router;
