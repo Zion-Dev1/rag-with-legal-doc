@@ -12,38 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const openai_1 = __importDefault(require("openai"));
+const queryDocService_1 = __importDefault(require("../services/queryDocService"));
+const genResponseService_1 = __importDefault(require("../services/genResponseService"));
 const genResponseController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const client = new openai_1.default({
-            apiKey: process.env.OPENAI_API_KEY,
-        });
         const query = req.body.query;
         if (typeof query !== "string" || query.trim() === "") {
             return res.status(400).json({ error: "Invalid query provided." });
         }
-        const completion = yield client.chat.completions.create({
-            model: "gpt-4.1",
-            messages: [
-                {
-                    role: "system",
-                    content: "You are a helpful assistant that will use the provided context to answer questions about a legal case.",
-                },
-                {
-                    role: "assistant",
-                    content: "Write a one-sentence bedtime story about a unicorn.",
-                },
-                {
-                    role: "user",
-                    content: "Write a one-sentence bedtime story about a unicorn.",
-                },
-            ],
-        });
+        const results = yield (0, queryDocService_1.default)(query);
+        const context = results === null || results === void 0 ? void 0 : results.documents[0];
+        const response = yield (0, genResponseService_1.default)(context, query);
         return res
             .status(200)
             .json({
             msg: "Response generated successfully.",
-            results: completion.choices[0].message.content,
+            results: response
         });
     }
     catch (err) {

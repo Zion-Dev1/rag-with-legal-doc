@@ -1,45 +1,27 @@
 import { Request, Response } from "express";
-import OpenAI from "openai";
+import queryDocService from "../services/queryDocService";
+import genResponseService from "../services/genResponseService";
 
 const genResponseController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const client = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
     const query = req.body.query;
-
     if (typeof query !== "string" || query.trim() === "") {
       return res.status(400).json({ error: "Invalid query provided." });
     }
 
-    const completion = await client.chat.completions.create({
-      model: "gpt-4.1",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a helpful assistant that will use the provided context to answer questions about a legal case.",
-        },
-        {
-          role: "assistant",
-          content: "Write a one-sentence bedtime story about a unicorn.",
-        },
-        {
-          role: "user",
-          content: "Write a one-sentence bedtime story about a unicorn.",
-        },
-      ],
-    });
+    const results = await queryDocService(query)
+    const context = results?.documents[0]
+
+    const response = await genResponseService(context, query);
 
     return res
       .status(200)
       .json({
         msg: "Response generated successfully.",
-        results: completion.choices[0].message.content,
+        results: response
       });
   } catch (err) {
     return res.status(500).json({ err: (err as Error).message });
