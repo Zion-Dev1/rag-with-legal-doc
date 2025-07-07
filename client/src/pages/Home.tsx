@@ -1,15 +1,18 @@
 import LoadDocumentBtn from "../components/LoadDocumentBtn";
 import AskQuerySection from "../components/AskQuerySection";
+import useAnswerStore from "../stores/answerStore";
 
-function Home() {
+const Home = () => {
+  const { answer } = useAnswerStore();
+
   return (
     <div>
       <LoadDocumentBtn />
       <AskQuerySection />
-      
-      <p>info here</p>
+
+      <p>{answer}</p>
     </div>
   );
-}
+};
 
 export default Home;

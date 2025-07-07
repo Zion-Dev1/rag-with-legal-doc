@@ -1,10 +1,11 @@
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
 import useQueryStore from "../stores/queryStore";
 import askQuery from "../services/askQueryApi";
+import useAnswerStore from "../stores/answerStore";
 
 const AskQuerySection = () => {
   const { query, setQuery } = useQueryStore();
+  const { setAnswer } = useAnswerStore();
 
   return (
     <div>
@@ -22,8 +23,8 @@ const AskQuerySection = () => {
         color="primary"
         onClick={() => {
           askQuery(query)
-            .then(({results}) => {
-              console.log(results);
+            .then(({ results }) => {
+              setAnswer(results);
             })
             .catch((error) => {
               console.error("Error asking query:", error);
