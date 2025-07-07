@@ -1,11 +1,11 @@
 import LoadDocumentBtn from "../components/LoadDocumentBtn";
-import QueryTextField from "../components/QueryTextField";
+import AskQuerySection from "../components/AskQuerySection";
 
 function Home() {
   return (
     <div>
       <LoadDocumentBtn />
-      <QueryTextField />
+      <AskQuerySection />
       
       <p>info here</p>
     </div>

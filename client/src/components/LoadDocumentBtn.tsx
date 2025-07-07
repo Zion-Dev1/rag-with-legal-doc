@@ -4,6 +4,7 @@ import { embedDocument } from "../services/embedDocApi";
 const LoadDocumentBtn = () => {
   return (
     <Button
+      sx={{ my: "20px" }}
       variant="contained"
       color="primary"
       onClick={() => {
