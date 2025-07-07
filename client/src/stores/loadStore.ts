@@ -1,13 +1,21 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
-interface LoadStore {
-  isDocLoaded: boolean;
-  switchState: () => void;
-}
+type LoadStoreState = { isDocLoaded: boolean };
+type LoadStoreActions = { switchState: () => void };
+type LoadStore = LoadStoreState & LoadStoreActions;
 
-const useLoadStore = create<LoadStore>((set) => ({
-  isDocLoaded: false,
-  switchState: () => set((state) => ({ isDocLoaded: !state.isDocLoaded })),
-}));
+const useLoadStore = create<LoadStore>()(
+  persist(
+    (set) => ({
+      isDocLoaded: false,
+      switchState: () => set((state) => ({ isDocLoaded: !state.isDocLoaded })),
+    }),
+    {
+      name: "loadStore",
+      storage: createJSONStorage(() => localStorage), // ✅ correct type handling
+    }
+  )
+);
 
 export default useLoadStore;
