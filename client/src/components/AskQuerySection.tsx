@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import useQueryStore from "../stores/queryStore";
 import askQuery from "../services/askQueryApi";
 import useAnswerStore from "../stores/answerStore";
@@ -8,32 +8,26 @@ const AskQuerySection = () => {
   const { setAnswer } = useAnswerStore();
 
   return (
-    <div>
+    <Box display="flex" gap={2} mt={2}>
       <TextField
+        fullWidth
         value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
+        onChange={(e) => setQuery(e.target.value)}
         variant="outlined"
-        label="Enter Query"
+        label="Enter your question"
+        size="small"
       />
-
       <Button
         variant="contained"
-        color="primary"
         onClick={() => {
           askQuery(query)
-            .then(({ results }) => {
-              setAnswer(results);
-            })
-            .catch((error) => {
-              console.error("Error asking query:", error);
-            });
+            .then(({ results }) => setAnswer(results))
+            .catch((err) => console.error("Error asking query:", err));
         }}
       >
-        Ask Query
+        Ask
       </Button>
-    </div>
+    </Box>
   );
 };
 
