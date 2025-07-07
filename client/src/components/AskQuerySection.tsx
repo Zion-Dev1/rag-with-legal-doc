@@ -1,8 +1,10 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
+import useQueryStore from "../stores/queryStore";
+import askQuery from "../services/askQueryApi";
 
 const AskQuerySection = () => {
-  const [query, setQuery] = useState("");
+  const { query, setQuery } = useQueryStore();
 
   return (
     <div>
@@ -14,8 +16,20 @@ const AskQuerySection = () => {
         variant="outlined"
         label="Enter Query"
       />
-      
-      <Button variant="contained" color="primary" onClick={() => {}}>
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          askQuery(query)
+            .then(({results}) => {
+              console.log(results);
+            })
+            .catch((error) => {
+              console.error("Error asking query:", error);
+            });
+        }}
+      >
         Ask Query
       </Button>
     </div>

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { embedDocument } from "../services/embedDocApi";
+import embedDocument from "../services/embedDocApi";
 import useLoadStore from "../stores/loadStore";
 
 const LoadDocumentBtn = () => {

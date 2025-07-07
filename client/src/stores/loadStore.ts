@@ -1,9 +1,10 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-type LoadStoreState = { isDocLoaded: boolean };
-type LoadStoreActions = { switchState: () => void };
-type LoadStore = LoadStoreState & LoadStoreActions;
+type LoadStore = {
+  isDocLoaded: boolean;
+  switchState: () => void;
+};
 
 const useLoadStore = create<LoadStore>()(
   persist(
@@ -13,7 +14,7 @@ const useLoadStore = create<LoadStore>()(
     }),
     {
       name: "loadStore",
-      storage: createJSONStorage(() => localStorage), // ✅ correct type handling
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
